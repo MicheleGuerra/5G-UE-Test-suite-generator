@@ -82,7 +82,7 @@ dl_params_frame = ttk.Frame(frame)
 dl_params_frame.grid(row=2, columnspan=2, sticky=(tk.W, tk.E))
 
 dl_params_per_function = {
-    "generate_registration_reject_tests": ["gmm_cause", "security_header_type", "t3466_value", "t3502_value", "nssai", "eap"],
+    "generate_registration_reject_tests": ["gmm_cause", "security_header_type", "t3346_value", "t3502_value", "nssai", "eap"],
     "generate_identity_request_tests": ["identity_type", "security_header_type"],
     "generate_authentication_request_tests": ["ngksi_tsc", "ngksi_ksi", "abba", "authentication_parameter_rand", "authentication_parameter_autn", "eap_message", "security_header_type"],
     "generate_security_mode_command_tests": ["nas_security_encryption", "nas_security_integrity", "security_header_type", "selected_eps_nas_security_algorithms", "eap_message", "imeisv_request", "ngksi_tsc", "ngksi_ksi", "abba", "replayed_ue_security_capabilities_nr_ea", "replayed_ue_security_capabilities_nr_ia", "replayed_ue_security_capabilities_eutra_ea", "replayed_ue_security_capabilities_eutra_ia", "replayed_ue_security_capabilities_gea", "additional_security_information_retransmission", "additional_security_information_derivation", "replayed_s1_ue_security_capabilities_nr_ea", "replayed_s1_ue_security_capabilities_nr_ia", "replayed_s1_ue_security_capabilities_eutra_ea", "replayed_s1_ue_security_capabilities_eutra_ia"]
