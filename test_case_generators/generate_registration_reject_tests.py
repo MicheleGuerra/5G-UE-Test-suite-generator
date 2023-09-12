@@ -3,6 +3,7 @@ import os
 import argparse
 import json
 import random
+from itertools import product
 
 # Define all possible values for each parameter
 gmm_cause_values = [
@@ -154,10 +155,73 @@ def generate_test_case(params_to_include, test_id):
     with open(output_filename, 'w') as json_file:
         json.dump(output_data, json_file, indent=2)
 
+
+def generate_all_possible_test_cases(params_to_include):
+    param_values = {
+        "gmm_cause": gmm_cause_values,
+        "security_header_type": security_header_type_values,
+        "t3502_value": timer_values,
+        "t3466_value": timer_values,
+        "nssai": nssai_values,
+        "eap": eap_values
+    }
+
+    # Create directory if not exists
+    directory_name = "generate_registration_reject_tests"
+    if not os.path.exists(directory_name):
+        os.makedirs(directory_name)
+    
+    selected_param_values = [param_values[param] for param in params_to_include]
+    
+    for test_id, combination in enumerate(product(*selected_param_values)):
+        param_dict = dict(zip(params_to_include, combination))
+        generate_test_case(param_dict, test_id)
+
+     # Controlli aggiuntivi per combinazioni specifiche
+    gmm_cause = param_dict.get("gmm_cause", None)
+
+    # Regola 1: Se la causa è "CONGESTION", allora t3502_value o t3466_value dovrebbe essere impostato su 10000
+    if gmm_cause == "OGS_5GMM_CAUSE_CONGESTION":
+        special_param = random.choice(["t3502_value", "t3466_value"])
+        param_dict[special_param] = "10000"
+
+    # Regola 2: Per cause illegali, utilizzare solo header di sicurezza "PLAIN_NAS_MESSAGE"
+    if gmm_cause in ["OGS_5GMM_CAUSE_ILLEGAL_UE", "OGS_5GMM_CAUSE_ILLEGAL_ME"]:
+        if "security_header_type" in param_dict:
+            param_dict["security_header_type"] = "OGS_NAS_SECURITY_HEADER_PLAIN_NAS_MESSAGE"
+
+    # Regola 3: Se la causa è una di quelle che indicano un'area non consentita, allora nssai dovrebbe essere rimosso
+    if gmm_cause in ["OGS_5GMM_CAUSE_PLMN_NOT_ALLOWED", "OGS_5GMM_CAUSE_TRACKING_AREA_NOT_ALLOWED"]:
+        if "nssai" in param_dict:
+            del param_dict["nssai"]
+
+    # Regola 4: Per "N1_MODE_NOT_ALLOWED", dovrebbe essere presente t3346_value
+    if gmm_cause == "OGS_5GMM_CAUSE_N1_MODE_NOT_ALLOWED":
+        param_dict["t3346_value"] = random.choice(timer_values)
+
+    # Regola 5: Per "NON_3GPP_ACCESS_TO_5GCN_NOT_ALLOWED", l'EAP Message dovrebbe essere vuoto
+    if gmm_cause == "OGS_5GMM_CAUSE_NON_3GPP_ACCESS_TO_5GCN_NOT_ALLOWED":
+        param_dict["eap"] = ""
+
+    # Regola 6: Per "UE_SECURITY_CAPABILITIES_MISMATCH", l'header di sicurezza dovrebbe essere impostato su "INTEGRITY_PROTECTED"
+    if gmm_cause == "OGS_5GMM_CAUSE_UE_SECURITY_CAPABILITIES_MISMATCH":
+        param_dict["security_header_type"] = "OGS_NAS_SECURITY_HEADER_INTEGRITY_PROTECTED"
+
+    output_data = [
+        {"ue_ul_handle": "null", "dl_reply": "null", "command_mode": "null", "dl_params": "null"},
+        {"ue_ul_handle": args.second_function, "dl_reply": "registration_reject", "command_mode": "send", "dl_params": param_dict},
+        {"ue_ul_handle": "null", "dl_reply": "null", "command_mode": "null", "dl_params": "null"}
+    ]
+
+    output_filename = f'{directory_name}/test_case_{test_id}.json'
+    with open(output_filename, 'w') as json_file:
+        json.dump(output_data, json_file, indent=2)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate Test Cases")
     parser.add_argument("--dl_params", nargs='+', help="List of dl_params to include in test cases", default=[])
-    parser.add_argument("--num_tests", type=int, help="Number of test cases to generate", default=1)
+    parser.add_argument("--num_tests", type=int, help="Number of test cases to generate")
     parser.add_argument('--second_function', type=str, help='Nome della seconda funzione selezionata.')
     parser.add_argument('--seed', type=int, help='The random seed')
     args = parser.parse_args()
@@ -169,5 +233,10 @@ if __name__ == "__main__":
         random.seed(args.seed)
 
 
-    for test_id in range(args.num_tests):
-        generate_test_case(args.dl_params, test_id)
+    if args.num_tests is None:
+        print(f"Generating all possible test cases")
+        generate_all_possible_test_cases(args.dl_params)
+    else:
+        for test_id in range(args.num_tests):
+            print(f"Generating {args.num_tests} test cases")
+            generate_test_case(args.dl_params, test_id)
