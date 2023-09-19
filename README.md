@@ -58,7 +58,7 @@ This repository contains a test suite generator for 5G UE (User Equipment). The 
 
 2. Input the parameters required for the test type. The GUI will automatically update the input fields based on the test type selected.
 
-3. Specify the number of test cases to generate and the random seed (optional).
+3. Specify the number of test cases to generate (or 0 for all combinations) and the random seed (optional).
 
 4. Click on "Generate" to start the test case generation process.
 
