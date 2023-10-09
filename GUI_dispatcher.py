@@ -28,7 +28,11 @@ def update_second_function_default():
         "generate_send_de_registration_request_tests": "authentication_response",
         "generate_send_gmm_status_tests": "authentication_response",
         "generate_send_service_accept_tests": "service_request",
-        "generate_configuration_update_command_tests": "authentication_response"
+        "generate_configuration_update_command_tests": "authentication_response",
+        "generate_registration_accept_tests": "registration_request",
+        "generate_authentication_result_tests": "authentication_response",
+        "generate_authentication_reject_tests": "authentication_response",
+        "generate_deregistration_accept_tests": "service_request"
     }
     default_value = default_values.get(first_function, "default_value_generale")
     second_function_var.set(default_value)
@@ -72,7 +76,7 @@ ttk.Label(frame, text="Select Downlink:").grid(row=0, column=0, sticky=tk.W)
 function_var = tk.StringVar()
 function_combo = ttk.Combobox(frame, textvariable=function_var, width=35)
 function_combo.grid(row=0, column=1, sticky=tk.W)
-function_combo['values'] = ("generate_registration_reject_tests", "generate_identity_request_tests", "generate_authentication_request_tests", "generate_security_mode_command_tests", "generate_send_service_reject_tests", "generate_send_de_registration_request_tests", "generate_send_gmm_status_tests", "generate_send_service_accept_tests", "generate_configuration_update_command_tests")
+function_combo['values'] = ("generate_registration_reject_tests", "generate_identity_request_tests", "generate_authentication_request_tests", "generate_security_mode_command_tests", "generate_send_service_reject_tests", "generate_send_de_registration_request_tests", "generate_send_gmm_status_tests", "generate_send_service_accept_tests", "generate_configuration_update_command_tests", "generate_registration_accept_tests", "generate_authentication_result_tests", "generate_authentication_reject_tests", "generate_deregistration_accept_tests")
 function_var.trace("w", update_dl_params)
 
 # Initialize second function combo box
@@ -95,7 +99,11 @@ dl_params_per_function = {
     "generate_send_de_registration_request_tests": ["gmm_cause", "security_header_type", "t3346_value", "de_registration_type.switch_off", "de_registration_type.tsc", "de_registration_type.ksi", "de_registration_type.re_registration_required", "de_registration_type.access_type", "rejected_nssai"],
     "generate_send_gmm_status_tests": ["gmm_cause", "security_header_type"],
     "generate_send_service_accept_tests": ["security_header_type", "pdu_session_status_psi", "pdu_session_reactivation_result_psi", "pdu_session_reactivation_result_error_cause", "t3448_value", "eap_message"],
-    "generate_configuration_update_command_tests": ["network_daylight_saving_time", "sms_indication_type", "security_header_type"]
+    "generate_configuration_update_command_tests": ["network_daylight_saving_time", "sms_indication_type", "security_header_type"],
+    "generate_registration_accept_tests": ["security_header_type", "registration_result_value", "equivalent_plmns_mcc", "network_feature_support_ims", "pdu_session_status_psi", "pdu_session_reactivation_result_psi", "nssai", "eap"],
+    "generate_authentication_result_tests": ["security_header_type", "ngksi_tsc", "ngksi_ksi", "eap"],
+    "generate_authentication_reject_tests": ["security_header_type"],
+    "generate_deregistration_accept_tests": ["security_header_type"]
 }
 
 dl_param_vars = {}
