@@ -72,18 +72,18 @@ frame = ttk.Frame(root, padding="10")
 frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
 # Initialize function combo box
-ttk.Label(frame, text="Select Downlink:").grid(row=0, column=0, sticky=tk.W)
+ttk.Label(frame, text="Select Downlink:").grid(row=1, column=0, sticky=tk.W)
 function_var = tk.StringVar()
 function_combo = ttk.Combobox(frame, textvariable=function_var, width=35)
-function_combo.grid(row=0, column=1, sticky=tk.W)
+function_combo.grid(row=1, column=1, sticky=tk.W)
 function_combo['values'] = ("generate_registration_reject_tests", "generate_identity_request_tests", "generate_authentication_request_tests", "generate_security_mode_command_tests", "generate_send_service_reject_tests", "generate_send_de_registration_request_tests", "generate_send_gmm_status_tests", "generate_send_service_accept_tests", "generate_configuration_update_command_tests", "generate_registration_accept_tests", "generate_authentication_result_tests", "generate_authentication_reject_tests", "generate_deregistration_accept_tests")
 function_var.trace("w", update_dl_params)
 
 # Initialize second function combo box
-ttk.Label(frame, text="Select Uplink:").grid(row=1, column=0, sticky=tk.W)
+ttk.Label(frame, text="Select Uplink:").grid(row=0, column=0, sticky=tk.W)
 second_function_var = tk.StringVar()
 second_function_combo = ttk.Combobox(frame, textvariable=second_function_var, width=35)
-second_function_combo.grid(row=1, column=1, sticky=tk.W)
+second_function_combo.grid(row=0, column=1, sticky=tk.W)
 second_function_combo['values'] = ("registration_request", "identity_response", "authentication_response", "service_request")
 
 # Initialize DL params checkbuttons
