@@ -2,6 +2,14 @@ import tkinter as tk
 from tkinter import ttk
 import subprocess
 
+
+# Dizionario dei parametri che possono avere l'opzione "disabled" per specifiche funzioni
+params_disabled_for_function = {
+    "generate_registration_reject_tests": ["gmm_cause", "security_header_type"],
+    "generate_identity_request_tests": ["security_header_type"]
+    # Aggiungi altre funzioni e i loro parametri come necessario
+}
+
 def update_dl_params(*args):
     function = function_var.get()
     update_second_function_default()  # Aggiunge questa riga per aggiornare la seconda funzione
@@ -13,6 +21,12 @@ def update_dl_params(*args):
         var.set(True)
         dl_param_vars[dl_param] = var
         ttk.Checkbutton(dl_params_frame, text=dl_param, variable=var).grid(row=i, column=0, sticky=tk.W)
+
+        if dl_param in params_disabled_for_function.get(function, []):
+            status_var = tk.StringVar()
+            status_var.set("enabled")
+            dl_param_status[dl_param] = status_var
+            ttk.Combobox(dl_params_frame, textvariable=status_var, values=("enabled", "disabled"), width=10).grid(row=i, column=1, sticky=tk.W)
 
     update_second_function_default()
 
@@ -44,15 +58,22 @@ def call_test_script():
     second_function = second_function_var.get()
     
     dl_params = []
+    disabled_params = []
     num_tests = int(num_tests_var.get())
     
     for dl_param, var in dl_param_vars.items():
         if var.get():
-            dl_params.append(dl_param)
+            if dl_param in dl_param_status and dl_param_status[dl_param].get() == "disabled":
+                disabled_params.append(dl_param)
+                dl_params.append(dl_param)
+            else:
+                dl_params.append(dl_param)
     
     cmd = ["python", f"test_case_generators/{script_name}.py"]
     if dl_params:
         cmd += ['--dl_params'] + dl_params
+    if disabled_params:
+        cmd += ['--disabled_params'] + disabled_params
     if num_tests:
         cmd.append(f'--num_tests={num_tests}')
     
@@ -61,6 +82,7 @@ def call_test_script():
     seed = seed_var.get()
     if seed:
         cmd.append(f'--seed={seed}')
+
     
     subprocess.run(' '.join(cmd), shell=True)
 
@@ -107,6 +129,7 @@ dl_params_per_function = {
 }
 
 dl_param_vars = {}
+dl_param_status = {}
 
 # Initialize seed entry
 ttk.Label(frame, text="Seed:").grid(row=3, column=0, sticky=tk.W)
