@@ -1,4 +1,5 @@
 # Parametrizzato su funzione 1
+from ast import arg
 import os
 import argparse
 import json
@@ -66,6 +67,8 @@ nssai_values = ["012345678901234567890123456789012345678901234567890123456789012
 eap_values = ["100"]
 
 def generate_test_case(params_to_include, test_id):
+
+    
     param_values = {
         "gmm_cause": gmm_cause_values,
         "security_header_type": security_header_type_values,
@@ -74,6 +77,7 @@ def generate_test_case(params_to_include, test_id):
         "nssai": nssai_values,
         "eap": eap_values
     }
+    
 
     param_dict = {}
 
@@ -85,7 +89,10 @@ def generate_test_case(params_to_include, test_id):
 
     for param in params_to_include:
         if param in param_values:
-            param_dict[param] = random.choice(param_values[param])
+            if param in args.disabled_params:
+                param_dict[param] = "disabled"
+            else:
+                param_dict[param] = random.choice(param_values[param])
 
 
 
@@ -191,6 +198,7 @@ if __name__ == "__main__":
     parser.add_argument("--num_tests", type=int, help="Number of test cases to generate")
     parser.add_argument('--second_function', type=str, help='Nome della seconda funzione selezionata.')
     parser.add_argument('--seed', type=int, help='The random seed')
+    parser.add_argument("--disabled_params", nargs='+', help="List of dl_params to set to 'disabled'", default=[])
     args = parser.parse_args()
 
     print(f"Received dl_params: {args.dl_params}")
