@@ -152,12 +152,26 @@ def generate_test_case(params_to_include, test_id):
     #if "eap_message" in param_dict:
     #    param_dict["gmm_cause"] = "OGS_5GMM_CAUSE_N1_MODE_NOT_ALLOWED"
 
+    functions_for_third_row = [
+            "service_request", 
+            "gmm_status", 
+            "configuration_update_complete", 
+            "deregistration_request", 
+            "deregistration_accept"
+        ]
 
-    output_data = [
-        {"ue_ul_handle": "null", "dl_reply": "null", "command_mode": "null", "dl_params": "null"},
-        {"ue_ul_handle": args.second_function, "dl_reply": "registration_reject", "command_mode": "send", "dl_params": param_dict},
-        {"ue_ul_handle": "null", "dl_reply": "null", "command_mode": "null", "dl_params": "null"}
-    ]
+    if args.second_function in functions_for_third_row:
+        output_data = [
+            {"ue_ul_handle": "null", "dl_reply": "null", "command_mode": "null", "dl_params": "null"},
+            {"ue_ul_handle": "null", "dl_reply": "null", "command_mode": "null", "dl_params": "null"},
+            {"ue_ul_handle": args.second_function, "dl_reply": "registration_reject", "command_mode": "send", "dl_params": param_dict}
+        ]
+    else:
+        output_data = [
+            {"ue_ul_handle": "null", "dl_reply": "null", "command_mode": "null", "dl_params": "null"},
+            {"ue_ul_handle": args.second_function, "dl_reply": "registration_reject", "command_mode": "send", "dl_params": param_dict},
+            {"ue_ul_handle": "null", "dl_reply": "null", "command_mode": "null", "dl_params": "null"}
+        ]
 
     output_filename = f'{directory_name}/test_case_{test_id}.json'
     with open(output_filename, 'w') as json_file:
