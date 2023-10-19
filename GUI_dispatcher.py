@@ -106,7 +106,7 @@ ttk.Label(frame, text="Select Uplink:").grid(row=0, column=0, sticky=tk.W)
 second_function_var = tk.StringVar()
 second_function_combo = ttk.Combobox(frame, textvariable=second_function_var, width=35)
 second_function_combo.grid(row=0, column=1, sticky=tk.W)
-second_function_combo['values'] = ("registration_request", "identity_response", "authentication_response", "service_request")
+second_function_combo['values'] = ("registration_request", "identity_response", "authentication_response", "service_request", "security_mode_complete", "registration_complete", "ul_nas_transport", "gmm_status", "configuration_update_complete", "deregistration_request", "deregistration_accept")
 
 # Initialize DL params checkbuttons
 dl_params_frame = ttk.Frame(frame)
