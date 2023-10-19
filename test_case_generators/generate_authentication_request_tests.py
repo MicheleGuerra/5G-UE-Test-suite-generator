@@ -1,7 +1,10 @@
+from ast import arg
+import os
 import argparse
 import json
 import random
-import os
+from itertools import product
+from itertools import chain, combinations
 
 # Define all possible values for each parameter
 ngksi_tsc_values = ["0"]
@@ -68,15 +71,57 @@ def generate_test_case(params_to_include, test_id):
     with open(output_filename, 'w') as json_file:
         json.dump(output_data, json_file, indent=2)
 
+
+def powerset(iterable):
+    "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
+    s = list(iterable)
+    return chain.from_iterable(combinations(s, r) for r in range(1, len(s) + 1))
+
+def generate_all_possible_test_cases(params_to_include):
+    param_values = {
+        "ngksi_tsc": ngksi_tsc_values,
+        "ngksi_ksi": ngksi_ksi_values,
+        "abba": abba_values,
+        "authentication_parameter_rand": authentication_parameter_rand_values,
+        "authentication_parameter_autn": authentication_parameter_autn_values,
+        "eap_message": eap_message_values,
+        "security_header_type": security_header_type_values
+    }
+    
+    test_id = 0
+    for subset in powerset(params_to_include):
+        selected_param_values = [param_values[param] for param in subset]
+        for combination in product(*selected_param_values):
+            param_dict = dict(zip(subset, combination))
+            generate_test_case(param_dict, test_id)
+            test_id += 1
+
+    print(f"Generated {test_id} test cases")
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate Test Cases")
     parser.add_argument("--dl_params", nargs='+', help="List of dl_params to include in test cases", default=[])
     parser.add_argument("--num_tests", type=int, help="Number of test cases to generate", default=1)
+    parser.add_argument('--seed', type=int, help='The random seed')
     parser.add_argument('--second_function', type=str, help='Nome della seconda funzione selezionata.')  # Nuova riga
     args = parser.parse_args()
 
     print(f"Received dl_params: {args.dl_params}")
     print(f"Received num_tests: {args.num_tests}")
 
-    for test_id in range(args.num_tests):
-        generate_test_case(args.dl_params, test_id)
+    all_param_combinations = list(powerset(args.dl_params))
+    random.shuffle(all_param_combinations)  # mescola l'elenco
+
+    if args.seed is not None:
+        random.seed(args.seed)
+
+
+    if args.num_tests is None:
+        print(f"Generating all possible test cases")
+        generate_all_possible_test_cases(args.dl_params)
+    else:
+        for test_id in range(args.num_tests):
+            selected_params = random.choice(all_param_combinations)
+            print(f"Generating test case with params: {selected_params}")
+            print(f"Generating {test_id + 1} test cases")
+            generate_test_case(selected_params, test_id)

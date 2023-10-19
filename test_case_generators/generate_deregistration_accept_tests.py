@@ -35,7 +35,7 @@ def generate_test_case(params_to_include, test_id):
     for param in params_to_include:
         if param in param_values:
             param_dict[param] = random.choice(param_values[param])
-            
+
 
     functions_for_third_row = [
             "service_request", 
@@ -97,6 +97,9 @@ if __name__ == "__main__":
     print(f"Received dl_params: {args.dl_params}")
     print(f"Received num_tests: {args.num_tests}")
 
+    all_param_combinations = list(powerset(args.dl_params))
+    random.shuffle(all_param_combinations)  # mescola l'elenco
+
     if args.seed is not None:
         random.seed(args.seed)
 
@@ -106,5 +109,7 @@ if __name__ == "__main__":
         generate_all_possible_test_cases(args.dl_params)
     else:
         for test_id in range(args.num_tests):
-            print(f"Generating {args.num_tests} test cases")
-            generate_test_case(args.dl_params, test_id)
+            selected_params = random.choice(all_param_combinations)
+            print(f"Generating test case with params: {selected_params}")
+            print(f"Generating {test_id + 1} test cases")
+            generate_test_case(selected_params, test_id)
