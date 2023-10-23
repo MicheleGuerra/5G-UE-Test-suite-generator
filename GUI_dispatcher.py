@@ -10,6 +10,8 @@ params_disabled_for_function = {
     # Aggiungi altre funzioni e i loro parametri come necessario
 }
 
+functions_with_special_checkbox = ["generate_security_mode_command_tests", "generate_registration_accept_tests", "generate_configuration_update_command_tests", "generate_send_service_accept_tests", "generate_send_gmm_status_tests", "generate_send_de_registration_request_tests", "generate_deregistration_accept_tests", "generate_authentication_result_tests"]
+
 def update_dl_params(*args):
     function = function_var.get()
     update_second_function_default()  # Aggiunge questa riga per aggiornare la seconda funzione
@@ -29,6 +31,12 @@ def update_dl_params(*args):
             ttk.Combobox(dl_params_frame, textvariable=status_var, values=("enabled", "disabled"), width=10).grid(row=i, column=1, sticky=tk.W)
 
     update_second_function_default()
+
+    # Update visibility of the SEND PLAIN MESSAGE checkbox
+    if function in functions_with_special_checkbox:
+        special_checkbox.grid()
+    else:
+        special_checkbox.grid_remove()
 
 
 def update_second_function_default():
@@ -76,12 +84,15 @@ def call_test_script():
         cmd += ['--disabled_params'] + disabled_params
     if num_tests:
         cmd.append(f'--num_tests={num_tests}')
+    if special_checkbox_var.get():
+        cmd.append(f'--enable_special_option')
     
     cmd.append(f'--second_function={second_function}')
 
     seed = seed_var.get()
     if seed:
         cmd.append(f'--seed={seed}')
+    
 
     
     subprocess.run(' '.join(cmd), shell=True)
@@ -130,20 +141,25 @@ dl_params_per_function = {
 
 dl_param_vars = {}
 dl_param_status = {}
+special_checkbox_var = tk.BooleanVar(value=False)
+
+# Initialize plain message checkbox
+special_checkbox = ttk.Checkbutton(frame, text="Send as plain message", variable=special_checkbox_var)
+special_checkbox.grid(row=3, column=0, sticky=tk.W)
 
 # Initialize seed entry
-ttk.Label(frame, text="Seed:").grid(row=3, column=0, sticky=tk.W)
+ttk.Label(frame, text="Seed:").grid(row=4, column=0, sticky=tk.W)
 seed_var = tk.StringVar()
 seed_entry = ttk.Entry(frame, textvariable=seed_var, width=10)
-seed_entry.grid(row=3, column=1, sticky=tk.W)
+seed_entry.grid(row=4, column=1, sticky=tk.W)
 
 # Initialize num_tests entry
-ttk.Label(frame, text="Number of Tests:").grid(row=4, column=0, sticky=tk.W)
+ttk.Label(frame, text="Number of Tests:").grid(row=5, column=0, sticky=tk.W)
 num_tests_var = tk.StringVar()
 num_tests_entry = ttk.Entry(frame, textvariable=num_tests_var, width=10)
-num_tests_entry.grid(row=4, column=1, sticky=tk.W)
+num_tests_entry.grid(row=5, column=1, sticky=tk.W)
 
 # Initialize execute button
-ttk.Button(frame, text="Execute", command=call_test_script).grid(row=5, columnspan=2)
+ttk.Button(frame, text="Execute", command=call_test_script).grid(row=6, columnspan=2)
 
 root.mainloop()
