@@ -5,9 +5,6 @@ import subprocess
 
 # Dizionario dei parametri che possono avere l'opzione "disabled" per specifiche funzioni
 params_disabled_for_function = {
-    "generate_registration_reject_tests": ["gmm_cause", "security_header_type"],
-    "generate_identity_request_tests": ["security_header_type"]
-    # Aggiungi altre funzioni e i loro parametri come necessario
 }
 
 functions_with_special_checkbox = ["generate_security_mode_command_tests", "generate_registration_accept_tests", "generate_configuration_update_command_tests", "generate_send_service_accept_tests", "generate_send_gmm_status_tests", "generate_send_de_registration_request_tests", "generate_deregistration_accept_tests", "generate_authentication_result_tests"]
