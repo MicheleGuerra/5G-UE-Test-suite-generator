@@ -89,6 +89,10 @@ def generate_test_case(params_to_include, test_id):
             "deregistration_request", 
             "deregistration_accept"
         ]
+    
+    if args.enable_special_option:
+        param_dict["security_header_type"] = "OGS_NAS_SECURITY_HEADER_PLAIN_NAS_MESSAGE"
+        param_dict["service_accept_security"] = "disabled"
 
     if args.second_function in functions_for_third_row:
         output_data = [
@@ -143,10 +147,14 @@ if __name__ == "__main__":
     parser.add_argument("--num_tests", type=int, help="Number of test cases to generate")
     parser.add_argument('--second_function', type=str, help='Nome della seconda funzione selezionata.')
     parser.add_argument('--seed', type=int, help='The random seed')
+    parser.add_argument('--enable_special_option', action='store_true', help='Enable special option for security_header_type')
     args = parser.parse_args()
 
     print(f"Received dl_params: {args.dl_params}")
     print(f"Received num_tests: {args.num_tests}")
+
+    if args.enable_special_option and "security_header_type" in args.dl_params:
+        args.dl_params.remove("security_header_type")
 
     all_param_combinations = list(powerset(args.dl_params))
     random.shuffle(all_param_combinations)  # mescola l'elenco
