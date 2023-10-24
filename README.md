@@ -29,10 +29,22 @@ This repository contains a test suite generator for 5G UE (User Equipment). The 
 - Generate test cases for 5G security mode command
 - Generate test cases for 5G authentication reject
 - Generate test cases for 5G Authentication request
-- Generate test cases for 5Gsend service reject
+- Generate test cases for 5G send service reject
 - Generate test cases for 5Gregistration accept 
 - ...extensible to other 5G functionalities
 
+## Supported tests (UPLINK)
+- Registration request
+- Identity response
+- authentication response
+- service request
+- security mode complete
+- registration complete
+- ul nas transport
+- gmm status
+- configuration update complete
+- deregistration request
+- deregistration accept
 
 ## Usage Guide
 
