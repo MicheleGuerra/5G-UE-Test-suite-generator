@@ -116,12 +116,14 @@ if __name__ == "__main__":
         random.seed(args.seed)
 
 
-    if args.num_tests is None:
-        print(f"Generating all possible test cases")
+    if args.use_all_dl_params:
+        print("Using all selected dl_params")
+        generate_test_case(args.dl_params, 0)
+    elif args.num_tests is None:
+        print("Generating all possible test cases")
         generate_all_possible_test_cases(args.dl_params)
     else:
         for test_id in range(args.num_tests):
             selected_params = random.choice(all_param_combinations)
             print(f"Generating test case with params: {selected_params}")
-            print(f"Generating {test_id + 1} test cases")
             generate_test_case(selected_params, test_id)
