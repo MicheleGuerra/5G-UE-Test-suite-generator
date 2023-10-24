@@ -18,12 +18,20 @@ This repository contains a test suite generator for 5G UE (User Equipment). The 
   
 - **Seed-based Randomization**: Allows for reproducible random test case generation through seed specification.
 
-## Supported tests
+## Supported tests (DOWNLINK)
 
 - Generate test cases for 5G Registration Reject
 - Generate test cases for 5G Identity Request
 - Generate test cases for 5G Authentication Request
-- Extensible to other 5G functionalities
+- Generate test cases for 5G Configuration update command
+- Generate test cases for 5G Send Service Accept
+- Generate test cases for 5G Authentication results
+- Generate test cases for 5G security mode command
+- Generate test cases for 5G authentication reject
+- Generate test cases for 5G Authentication request
+- Generate test cases for 5Gsend service reject
+- Generate test cases for 5Gregistration accept 
+- ...extensible to other 5G functionalities
 
 
 ## Usage Guide
