@@ -83,6 +83,8 @@ def call_test_script():
         cmd.append(f'--num_tests={num_tests}')
     if special_checkbox_var.get():
         cmd.append(f'--enable_special_option')
+    if use_all_dl_params_var.get():
+        cmd.append('--use_all_dl_params')
     
     cmd.append(f'--second_function={second_function}')
 
@@ -139,10 +141,13 @@ dl_params_per_function = {
 dl_param_vars = {}
 dl_param_status = {}
 special_checkbox_var = tk.BooleanVar(value=False)
+use_all_dl_params_var = tk.BooleanVar(value=False)
 
 # Initialize plain message checkbox
 special_checkbox = ttk.Checkbutton(frame, text="Send as plain message", variable=special_checkbox_var)
 special_checkbox.grid(row=3, column=0, sticky=tk.W)
+use_all_dl_params_checkbox = tk.Checkbutton(frame, text="Use ALL selected params", variable=use_all_dl_params_var)
+use_all_dl_params_checkbox.grid(row=3, column=1, sticky=tk.W)
 
 # Initialize seed entry
 ttk.Label(frame, text="Seed:").grid(row=4, column=0, sticky=tk.W)
