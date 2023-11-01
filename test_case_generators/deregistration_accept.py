@@ -97,6 +97,7 @@ if __name__ == "__main__":
     parser.add_argument('--second_function', type=str, help='Nome della seconda funzione selezionata.')
     parser.add_argument('--seed', type=int, help='The random seed')
     parser.add_argument('--enable_special_option', action='store_true', help='Enable special option for security_header_type')
+    parser.add_argument('--use_all_dl_params', action='store_true', help='Use all dl_params selected, ignoring powerset')
     args = parser.parse_args()
 
     print(f"Received dl_params: {args.dl_params}")

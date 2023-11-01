@@ -104,6 +104,7 @@ if __name__ == "__main__":
     parser.add_argument("--num_tests", type=int, help="Number of test cases to generate", default=1)
     parser.add_argument('--seed', type=int, help='The random seed')
     parser.add_argument('--second_function', type=str, help='Nome della seconda funzione selezionata.')  # Nuova riga
+    parser.add_argument('--use_all_dl_params', action='store_true', help='Use all dl_params selected, ignoring powerset')
     args = parser.parse_args()
 
     print(f"Received dl_params: {args.dl_params}")
