@@ -7,7 +7,7 @@ import subprocess
 params_disabled_for_function = {
 }
 
-functions_with_special_checkbox = ["security_mode_command", "registration_accept", "configuration_update_command", "send_service_accept", "send_gmm_status", "send_de_registration_request", "deregistration_accept", "authentication_result"]
+functions_with_special_checkbox = ["security_mode_command", "registration_accept", "configuration_update_command", "service_accept", "gmm_status", "deregistration_request", "deregistration_accept", "authentication_result"]
 
 def update_dl_params(*args):
     function = function_var.get()
@@ -43,10 +43,10 @@ def update_second_function_default():
         "identity_request": "identity_response",
         "authentication_request": "identity_response",
         "security_mode_command": "authentication_response",
-        "send_service_reject": "authentication_response",
-        "send_de_registration_request": "authentication_response",
-        "send_gmm_status": "authentication_response",
-        "send_service_accept": "service_request",
+        "service_reject": "authentication_response",
+        "deregistration_request": "authentication_response",
+        "gmm_status": "authentication_response",
+        "service_accept": "service_request",
         "configuration_update_command": "authentication_response",
         "registration_accept": "registration_request",
         "authentication_result": "authentication_response",
@@ -108,7 +108,7 @@ ttk.Label(frame, text="Select Downlink:").grid(row=1, column=0, sticky=tk.W)
 function_var = tk.StringVar()
 function_combo = ttk.Combobox(frame, textvariable=function_var, width=35)
 function_combo.grid(row=1, column=1, sticky=tk.W)
-function_combo['values'] = ("registration_reject", "identity_request", "authentication_request", "security_mode_command", "send_service_reject", "send_de_registration_request", "send_gmm_status", "send_service_accept", "configuration_update_command", "registration_accept", "authentication_result", "authentication_reject", "deregistration_accept")
+function_combo['values'] = ("registration_reject", "identity_request", "authentication_request", "security_mode_command", "service_reject", "deregistration_request", "gmm_status", "service_accept", "configuration_update_command", "registration_accept", "authentication_result", "authentication_reject", "deregistration_accept")
 function_var.trace("w", update_dl_params)
 
 # Initialize second function combo box
@@ -127,10 +127,10 @@ dl_params_per_function = {
     "identity_request": ["identity_type", "security_header_type"],
     "authentication_request": ["ngksi_tsc", "ngksi_ksi", "abba", "authentication_parameter_rand", "authentication_parameter_autn", "eap_message", "security_header_type"],
     "security_mode_command": ["nas_security_encryption", "nas_security_integrity", "security_header_type", "selected_eps_nas_security_algorithms", "eap_message", "imeisv_request", "ngksi_tsc", "ngksi_ksi", "abba", "replayed_ue_security_capabilities_nr_ea", "replayed_ue_security_capabilities_nr_ia", "replayed_ue_security_capabilities_eutra_ea", "replayed_ue_security_capabilities_eutra_ia", "replayed_ue_security_capabilities_gea", "additional_security_information_retransmission", "additional_security_information_derivation", "replayed_s1_ue_security_capabilities_nr_ea", "replayed_s1_ue_security_capabilities_nr_ia", "replayed_s1_ue_security_capabilities_eutra_ea", "replayed_s1_ue_security_capabilities_eutra_ia"],
-    "send_service_reject": ["gmm_cause", "security_header_type", "t3346_value", "t3448_value", "pdu_session_status", "eap_message"],
-    "send_de_registration_request": ["gmm_cause", "security_header_type", "t3346_value", "de_registration_type.switch_off", "de_registration_type.tsc", "de_registration_type.ksi", "de_registration_type.re_registration_required", "de_registration_type.access_type", "rejected_nssai"],
-    "send_gmm_status": ["gmm_cause", "security_header_type"],
-    "send_service_accept": ["security_header_type", "pdu_session_status_psi", "pdu_session_reactivation_result_psi", "pdu_session_reactivation_result_error_cause", "t3448_value", "eap_message"],
+    "service_reject": ["gmm_cause", "security_header_type", "t3346_value", "t3448_value", "pdu_session_status", "eap_message"],
+    "deregistration_request": ["gmm_cause", "security_header_type", "t3346_value", "de_registration_type.switch_off", "de_registration_type.tsc", "de_registration_type.ksi", "de_registration_type.re_registration_required", "de_registration_type.access_type", "rejected_nssai"],
+    "gmm_status": ["gmm_cause", "security_header_type"],
+    "service_accept": ["security_header_type", "pdu_session_status_psi", "pdu_session_reactivation_result_psi", "pdu_session_reactivation_result_error_cause", "t3448_value", "eap_message"],
     "configuration_update_command": ["network_daylight_saving_time", "sms_indication_type", "security_header_type"],
     "registration_accept": ["security_header_type", "registration_result_value", "equivalent_plmns_mcc", "network_feature_support_ims", "pdu_session_status_psi", "pdu_session_reactivation_result_psi", "nssai", "eap"],
     "authentication_result": ["security_header_type", "ngksi_tsc", "ngksi_ksi", "eap"],
