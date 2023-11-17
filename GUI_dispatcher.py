@@ -108,7 +108,7 @@ ttk.Label(frame, text="Select Downlink:").grid(row=1, column=0, sticky=tk.W)
 function_var = tk.StringVar()
 function_combo = ttk.Combobox(frame, textvariable=function_var, width=35)
 function_combo.grid(row=1, column=1, sticky=tk.W)
-function_combo['values'] = ("registration_reject", "identity_request", "authentication_request", "security_mode_command", "service_reject", "deregistration_request", "gmm_status", "service_accept", "configuration_update_command", "registration_accept", "authentication_result", "authentication_reject", "deregistration_accept")
+function_combo['values'] = ("identity_request", "authentication_request", "security_mode_command", "registration_accept", "configuration_update_command", "service_accept", "service_reject", "gmm_status", "deregistration_accept", "deregistration_request", "authentication_result", "authentication_reject", "registration_reject")
 function_var.trace("w", update_dl_params)
 
 # Initialize second function combo box
@@ -116,7 +116,7 @@ ttk.Label(frame, text="Select Uplink:").grid(row=0, column=0, sticky=tk.W)
 second_function_var = tk.StringVar()
 second_function_combo = ttk.Combobox(frame, textvariable=second_function_var, width=35)
 second_function_combo.grid(row=0, column=1, sticky=tk.W)
-second_function_combo['values'] = ("registration_request", "identity_response", "authentication_response", "service_request", "security_mode_complete", "registration_complete", "ul_nas_transport", "gmm_status", "configuration_update_complete", "deregistration_request", "deregistration_accept")
+second_function_combo['values'] = ("registration_request", "identity_response", "authentication_response", "security_mode_complete", "registration_complete", "ul_nas_transport", "service_request", "gmm_status", "configuration_update_complete", "deregistration_request", "deregistration_accept")
 
 # Initialize DL params checkbuttons
 dl_params_frame = ttk.Frame(frame)
