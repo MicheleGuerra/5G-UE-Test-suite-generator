@@ -70,6 +70,12 @@ def generate_test_case(params_to_include, test_id):
             {"ue_ul_handle": "null", "dl_reply": "null", "command_mode": "null", "dl_params": "null"},
             {"ue_ul_handle": args.second_function, "dl_reply": "registration_accept", "command_mode": "send", "dl_params": param_dict}
         ]
+    elif not param_dict:
+        output_data = [
+            {"ue_ul_handle": "null", "dl_reply": "null", "command_mode": "null", "dl_params": "null"},
+            {"ue_ul_handle": "null", "dl_reply": "null", "command_mode": "null", "dl_params": "null"},
+            {"ue_ul_handle": args.second_function, "dl_reply": "authentication_request", "command_mode": "send", "dl_params": "null"}
+        ]
     else:
         output_data = [
             {"ue_ul_handle": "null", "dl_reply": "null", "command_mode": "null", "dl_params": "null"},
