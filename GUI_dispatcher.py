@@ -14,7 +14,8 @@ def update_dl_params(*args):
     #update_second_function_default()  # Aggiunge questa riga per aggiornare la seconda funzione
     for widget in dl_params_frame.winfo_children():
         widget.destroy()
-    
+
+    row = 0
     for i, dl_param in enumerate(dl_params_per_function.get(function, [])):
         var = tk.BooleanVar()
         var.set(True)
@@ -28,10 +29,11 @@ def update_dl_params(*args):
             ttk.Combobox(dl_params_frame, textvariable=status_var, values=("enabled", "disabled"), width=10).grid(row=i, column=1, sticky=tk.W)
 
     #update_second_function_default()
-
+        row += 1
     # Update visibility of the SEND PLAIN MESSAGE checkbox
     if function in functions_with_special_checkbox:
-        special_checkbox.grid()
+        special_checkbox = ttk.Checkbutton(dl_params_frame, text="Send as plain message", variable=special_checkbox_var)
+        special_checkbox.grid(row=row, column=0, sticky=tk.W)
     else:
         special_checkbox.grid_remove()
 
@@ -144,10 +146,11 @@ special_checkbox_var = tk.BooleanVar(value=False)
 use_all_dl_params_var = tk.BooleanVar(value=False)
 
 # Initialize plain message checkbox
-special_checkbox = ttk.Checkbutton(frame, text="Send as plain message", variable=special_checkbox_var)
-special_checkbox.grid(row=3, column=0, sticky=tk.W)
+#special_checkbox = ttk.Checkbutton(frame, text="Send as plain message", variable=special_checkbox_var)
+#special_checkbox.grid(row=3, column=0, sticky=tk.W)
 use_all_dl_params_checkbox = tk.Checkbutton(frame, text="Use ALL selected params", variable=use_all_dl_params_var)
 use_all_dl_params_checkbox.grid(row=3, column=1, sticky=tk.W)
+
 
 # Initialize seed entry
 ttk.Label(frame, text="Seed:").grid(row=4, column=0, sticky=tk.W)
