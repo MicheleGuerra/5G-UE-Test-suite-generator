@@ -8,6 +8,8 @@ params_disabled_for_function = {
 }
 
 functions_with_special_checkbox = ["security_mode_command", "registration_accept", "configuration_update_command", "service_accept", "gmm_status", "deregistration_request", "deregistration_accept", "authentication_result"]
+all_parametes_functions = ["identity_request", "authentication_request", "security_mode_command", "registration_accept", "configuration_update_command", "service_accept", "service_reject", "gmm_status", "deregistration_accept", "deregistration_request", "authentication_result", "authentication_reject", "registration_reject"]
+
 
 def update_dl_params(*args):
     function = function_var.get()
@@ -30,12 +32,25 @@ def update_dl_params(*args):
 
     #update_second_function_default()
         row += 1
+
+    # Update visibility of the ALL parameters checkbox
+    if function in all_parametes_functions:
+        use_all_dl_params_checkbox = tk.Checkbutton(dl_params_frame, text="Use ALL selected params", variable=use_all_dl_params_var)
+        use_all_dl_params_checkbox.grid(row=row+1, column=1, sticky=tk.W)
+    else:
+        use_all_dl_params_checkbox.grid_remove()
+
+    special_checkbox = ttk.Checkbutton(dl_params_frame, text="Send as plain message", variable=special_checkbox_var)
     # Update visibility of the SEND PLAIN MESSAGE checkbox
+    ttk.Label(dl_params_frame, text="More Options:").grid(row=row, column=0, sticky=tk.W)
     if function in functions_with_special_checkbox:
-        special_checkbox = ttk.Checkbutton(dl_params_frame, text="Send as plain message", variable=special_checkbox_var)
-        special_checkbox.grid(row=row, column=0, sticky=tk.W)
+        #special_checkbox = ttk.Checkbutton(dl_params_frame, text="Send as plain message", variable=special_checkbox_var)
+        special_checkbox.grid(row=row+1, column=0, sticky=tk.W)
     else:
         special_checkbox.grid_remove()
+
+    
+    
 
 
 def update_second_function_default():
@@ -100,7 +115,11 @@ def call_test_script():
 
 # Initialize main window
 root = tk.Tk()
-root.title("Dispatcher GUI")
+root.title(" Test Case Generator")
+
+# Set the window icon
+root.iconbitmap('5g.ico')
+
 
 frame = ttk.Frame(root, padding="10")
 frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
@@ -148,8 +167,8 @@ use_all_dl_params_var = tk.BooleanVar(value=False)
 # Initialize plain message checkbox
 #special_checkbox = ttk.Checkbutton(frame, text="Send as plain message", variable=special_checkbox_var)
 #special_checkbox.grid(row=3, column=0, sticky=tk.W)
-use_all_dl_params_checkbox = tk.Checkbutton(frame, text="Use ALL selected params", variable=use_all_dl_params_var)
-use_all_dl_params_checkbox.grid(row=3, column=1, sticky=tk.W)
+#use_all_dl_params_checkbox = tk.Checkbutton(frame, text="Use ALL selected params", variable=use_all_dl_params_var)
+#use_all_dl_params_checkbox.grid(row=3, column=0, sticky=tk.W)
 
 
 # Initialize seed entry
@@ -165,6 +184,12 @@ num_tests_entry = ttk.Entry(frame, textvariable=num_tests_var, width=10)
 num_tests_entry.grid(row=5, column=1, sticky=tk.W)
 
 # Initialize execute button
-ttk.Button(frame, text="Execute", command=call_test_script).grid(row=6, columnspan=2)
+ttk.Button(frame, text="Execute", command=call_test_script).grid(row=6, columnspan=2, sticky=(tk.W, tk.E), pady=10)
+
+# Initialize the label for the footer text
+footer_label = ttk.Label(frame, text="Made with \u2665 by CSP-lab", font=("Helvetica", 10))
+footer_label.grid(row=8, columnspan=2, sticky=tk.S, pady=10)
+
+
 
 root.mainloop()
