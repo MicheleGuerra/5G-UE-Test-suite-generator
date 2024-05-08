@@ -85,3 +85,6 @@ This repository contains a test suite generator for 5G UE (User Equipment). The 
 ## Requirements
 
 - Python 3.x
+- tkinter
+- subprocess32
+- platformdirs
