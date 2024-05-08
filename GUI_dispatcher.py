@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import subprocess
+import platform 
 
 
 # Dizionario dei parametri che possono avere l'opzione "disabled" per specifiche funzioni
@@ -16,6 +17,8 @@ def update_dl_params(*args):
     #update_second_function_default()  # Aggiunge questa riga per aggiornare la seconda funzione
     for widget in dl_params_frame.winfo_children():
         widget.destroy()
+
+    ttk.Label(frame, text="Downlink Parameters").grid(row=0, column=0, sticky=tk.W)
 
     row = 0
     for i, dl_param in enumerate(dl_params_per_function.get(function, [])):
@@ -35,7 +38,7 @@ def update_dl_params(*args):
 
     # Update visibility of the ALL parameters checkbox
     if function in all_parametes_functions:
-        use_all_dl_params_checkbox = tk.Checkbutton(dl_params_frame, text="Use ALL selected params", variable=use_all_dl_params_var)
+        use_all_dl_params_checkbox = tk.Checkbutton(dl_params_frame, text="Use all selected params", variable=use_all_dl_params_var)
         use_all_dl_params_checkbox.grid(row=row+1, column=1, sticky=tk.W)
     else:
         use_all_dl_params_checkbox.grid_remove()
@@ -117,9 +120,9 @@ def call_test_script():
 root = tk.Tk()
 root.title(" Test Case Generator")
 
-# Set the window icon
-root.iconbitmap('5g.ico')
-
+# Set the window icon based on the operating system
+if platform.system() == 'Windows':
+    root.iconbitmap('5g.ico')  # Imposta l'icona solo se il sistema operativo è Windows
 
 frame = ttk.Frame(root, padding="10")
 frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
