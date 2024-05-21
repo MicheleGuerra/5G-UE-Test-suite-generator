@@ -14,7 +14,8 @@ security_header_type_values = [
     "OGS_NAS_SECURITY_HEADER_INTEGRITY_PROTECTED_AND_NEW_SECURITY_CONTEXT",
     "OGS_NAS_SECURITY_HEADER_INTEGRITY_PROTECTED_AND_PARTICALLY_CIPHTERD",
     "OGS_NAS_SECURITY_HEADER_FOR_SERVICE_REQUEST_MESSAGE",
-    "OGS_NAS_SECURITY_HEADER_INTEGRITY_PROTECTED_AND_CIPHTERD_WITH_NEW_INTEGRITY_CONTEXT"
+    "OGS_NAS_SECURITY_HEADER_INTEGRITY_PROTECTED_AND_CIPHTERD_WITH_NEW_INTEGRITY_CONTEXT",
+    "OGS_NAS_SECURITY_HEADER_INTEGRITY_PROTECTED_AND_CIPHERED"
 ]
 
 pdu_session_status_psi_values = [
@@ -41,21 +42,8 @@ pdu_session_reactivation_result_error_cause_values = [
     # ... altri valori
 ]
 
-t3448_value_values = [
-    # Questo parametro accetta valori numerici convertiti dalla funzione stringToInt8.
-    # Non posso fornirti una lista esatta di valori, ma sono valori numerici convertiti da stringhe.
-    "NUM_VALUE1",  # Placeholder: sostituisci con i valori effettivi
-    "NUM_VALUE2",
-    # ... altri valori
-]
-
-eap_message_values = [
-    # Anche questo parametro accetta valori stringa.
-    # Dal codice fornito non ho un elenco esatto di valori. Può essere qualsiasi stringa.
-    "EAP_STRING1",  # Placeholder: sostituisci con i valori effettivi
-    "EAP_STRING2",
-    # ... altri valori
-]
+t3448_value_values = ["10","20","30","40","50"]
+eap_message_values = ["100"]
 
 
 def generate_test_case(params_to_include, test_id):
