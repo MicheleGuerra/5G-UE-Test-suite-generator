@@ -62,8 +62,8 @@ security_header_type_values = [
     "OGS_NAS_SECURITY_HEADER_INTEGRITY_PROTECTED_AND_CIPHERED"
 ]
 
-timer_values = ["100"]
-nssai_values = ["01234567890123456789012345678901234567890123456789012345678901234567890123456789"]
+timer_values = ["10","20","30","40","50"]
+nssai_values = ["0", "1", "2", "3", "4", "5", "6", "7"]
 eap_values = ["100"]
 
 def generate_test_case(params_to_include, test_id):
