@@ -25,8 +25,8 @@ network_feature_support_ims_values = list(range(-128, 128))  # Intero a 8 bit co
 pdu_session_status_psi_values = list(range(0, 65536))  # Intero a 16 bit senza segno
 pdu_session_reactivation_result_psi_values = list(range(0, 65536))  # Intero a 16 bit senza segno
 
-nssai_values = ["01234567890123456789012345678901234567890123456789012345678901234567890123456789"]
-eap_values = ["100"]
+nssai_values = ["1"]
+eap_values = ["0"]
 
 def generate_test_case(params_to_include, test_id):
     param_values = {
