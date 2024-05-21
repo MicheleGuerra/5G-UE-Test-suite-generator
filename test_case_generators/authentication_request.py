@@ -7,11 +7,11 @@ from itertools import product
 from itertools import chain, combinations
 
 # Define all possible values for each parameter
-ngksi_tsc_values = ["0"]
-ngksi_ksi_values = ["0"]
-abba_values = ["0"]
-authentication_parameter_rand_values = ["0"]
-authentication_parameter_autn_values = ["0"]
+ngksi_tsc_values = ["0", "1", "2", "3", "4", "5", "6", "7", "8" ]
+ngksi_ksi_values = ["0", "1", "2", "3", "4", "5", "6", "7", "8" ]
+abba_values = ["0000", "1111", "0101", "1010", "2222","9999"]
+authentication_parameter_rand_values = ["00000000000000000000000000000000","11111111111111111111111111111111","fd6b00224351b5cdb63d2ed685770862"]
+authentication_parameter_autn_values = ["00000000000000000000000000000000","11111111111111111111111111111111","15416fe2889e9000bad3eab473bfcc19"]
 eap_message_values = ["0"]
 
 security_header_type_values = [
