@@ -18,30 +18,9 @@ security_header_type_values = [
     "OGS_NAS_SECURITY_HEADER_INTEGRITY_PROTECTED_AND_CIPHERED"
 ]
 
-pdu_session_status_psi_values = [
-    # Questo parametro accetta valori numerici convertiti dalla funzione stringToInt16.
-    # Non posso fornirti una lista esatta di valori, ma sono valori numerici convertiti da stringhe.
-    "VALUE1",  # Placeholder: sostituisci con i valori effettivi
-    "VALUE2",
-    # ... altri valori
-]
-
-pdu_session_reactivation_result_psi_values = [
-    # Anche questo parametro accetta valori numerici convertiti dalla funzione stringToInt16.
-    # Come per pdu_session_status_psi, sono valori numerici convertiti da stringhe.
-    "VALUE1",  # Placeholder: sostituisci con i valori effettivi
-    "VALUE2",
-    # ... altri valori
-]
-
-pdu_session_reactivation_result_error_cause_values = [
-    # Questo parametro accetta valori stringa.
-    # Dal codice fornito non ho un elenco esatto di valori. Può essere qualsiasi stringa.
-    "STRING_VALUE1",  # Placeholder: sostituisci con i valori effettivi
-    "STRING_VALUE2",
-    # ... altri valori
-]
-
+pdu_session_status_psi_values = ["0", "1", "2", "3", "4", "5", "6", "7"]
+pdu_session_reactivation_result_psi_values = ["0", "1", "2", "3", "4", "5", "6", "7"]
+pdu_session_reactivation_result_error_cause_values = ["0", "1", "2", "3", "4", "5", "6", "7"]
 t3448_value_values = ["10","20","30","40","50"]
 eap_message_values = ["100"]
 
