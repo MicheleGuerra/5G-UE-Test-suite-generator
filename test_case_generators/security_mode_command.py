@@ -79,79 +79,25 @@ selected_eps_nas_security_algorithms_values =[
 	"OGS_NAS_SECURITY_ALGORITHMS_128_EIA3"	
     ]
 
-
-eap_values =[
-	"100"
-    ]
-
-
-imeisv_request_values =[
-	"OGS_NAS_IMEISV_NOT_REQUESTED"	
-    ]
-	
-
-ngksi_tsc_values =[
-	"1"
-    ]
-
-ngksi_ksi_values =[
-	"1"
-    ]
-
-
-abba_values =[
-	"1"
-    ]
-
-
-replayed_ue_security_capabilities_nr_ea_values =[
-	"1"
-    ]
-
-replayed_ue_security_capabilities_nr_ia_values =[
-	"1"
-    ]
-
-replayed_ue_security_capabilities_eutra_ea_values =[
-	"1"
-    ]
-
-replayed_ue_security_capabilities_eutra_ia_values =[
-	"1"
-    ]
+eap_values =["100"]
+imeisv_request_values =["OGS_NAS_IMEISV_NOT_REQUESTED"]
+ngksi_tsc_values =["0", "1", "2", "3", "4", "5", "6", "7", "8" ]
+ngksi_ksi_values =["0", "1", "2", "3", "4", "5", "6", "7", "8" ]
+abba_values = ["0000", "1111", "0101", "1010", "2222","9999"]
+replayed_ue_security_capabilities_nr_ea_values =["5G-EA0", "128-5G-EA1", "128-5G-EA2", "128-5G-EA3", "5G-EA4", "5G-EA5", "5G-EA6", "5G-EA7"]
+replayed_ue_security_capabilities_nr_ia_values =["5G-IA0", "128-5G-IA1", "128-5G-IA2", "128-5G-IA3", "5G-IA4", "5G-IA5", "5G-IA6", "5G-IA7"]
+replayed_ue_security_capabilities_eutra_ea_values =["EEA0","128-EEA1", "128-EEA2","123-EEA3", "EEA4","EEA5", "EEA6","EEA7"]
+replayed_ue_security_capabilities_eutra_ia_values =["EIA0","128-EIA1", "128-EIA2","128-EIA3", "EIA4","EIA5", "EIA6","EIA7"]
+replayed_ue_security_capabilities_gea_values = ["GEA0","GEA1", "GEA2","GEA3", "GEA4","GEA5", "GEA6","GEA7"]
+additional_security_information_retransmission_values =["0","1"]   
+additional_security_information_derivation_values =["0","1"]  
+replayed_s1_ue_security_capabilities_nr_ea_values = ["EEA0", "128-EEA1", "128-EEA2", "128-EEA3", "EEA4", "EEA5", "EEA6", "EEA7"]
+replayed_s1_ue_security_capabilities_nr_ia_values = ["EIA0", "128-EIA1", "128-EIA2", "128-EIA3", "EIA4", "EIA5", "EIA6", "EPS-UPIP"]
+replayed_s1_ue_security_capabilities_eutra_ea_values = ["UEA0","UEA1", "UEA2","UEA3", "UEA4","UEA5", "UEA6","UEA7"]
+replayed_s1_ue_security_capabilities_eutra_ia_values = ["UIA0","UIA1", "UIA2","UIA3", "UIA4","UIA5", "UIA6","UIA7"]
 
 
 
-replayed_ue_security_capabilities_gea_values =[
-	"1"
-    ]
-
-
-additional_security_information_retransmission_values =[
-	"1"
-    ]
-    
-    
-additional_security_information_derivation_values =[
-	"1"
-    ]
-    
-replayed_s1_ue_security_capabilities_nr_ea_values =[
-	"1"
-    ]
-    
-replayed_s1_ue_security_capabilities_nr_ia_values =[
-	"1"
-    ]
-    
-replayed_s1_ue_security_capabilities_eutra_ea_values =[
-	"1"
-    ]
-    
-
-replayed_s1_ue_security_capabilities_eutra_ia_values =[
-	"1"
-    ]
 
 def generate_test_case(params_to_include, test_id):
     param_values = {
