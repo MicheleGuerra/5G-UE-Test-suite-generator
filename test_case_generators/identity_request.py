@@ -9,6 +9,7 @@ from itertools import chain, combinations
 # Define all possible values for each parameter
 identity_type_values = [
     "OGS_NAS_5GS_MOBILE_IDENTITY_IS_NOT_AVAILABLE",
+    "OGS_NAS_5GS_MOBILE_IDENTITY_SUCI",
     "OGS_NAS_5GS_MOBILE_IDENTITY_GUTI",
     "OGS_NAS_5GS_MOBILE_IDENTITY_IMEI",
     "OGS_NAS_5GS_MOBILE_IDENTITY_S_TMSI",
